@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffMatchPatch", "DiffMatchPatch\DiffMatchPatch.csproj", "{0C181361-0C52-4FD9-B7F8-EE0C1660BF6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffMatchPatch.UnitTests", "DiffMatchPatch.UnitTests\DiffMatchPatch.UnitTests.csproj", "{A3FD4C94-4F8B-4824-866A-A38E7849FA55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C181361-0C52-4FD9-B7F8-EE0C1660BF6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C181361-0C52-4FD9-B7F8-EE0C1660BF6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C181361-0C52-4FD9-B7F8-EE0C1660BF6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C181361-0C52-4FD9-B7F8-EE0C1660BF6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3FD4C94-4F8B-4824-866A-A38E7849FA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FD4C94-4F8B-4824-866A-A38E7849FA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FD4C94-4F8B-4824-866A-A38E7849FA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FD4C94-4F8B-4824-866A-A38E7849FA55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
