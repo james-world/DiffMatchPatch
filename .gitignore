@@ -446,3 +446,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Approval tests - ignore received files
+*.received.txt

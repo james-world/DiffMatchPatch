@@ -1,0 +1,32 @@
+@@ -22,71 +22,66 @@
+ f a 
+-modern Major-Gener
++cartoon individu
+ al,%0d%0a
+-I've infor
++My ani
+ mation
+- vegetable, anim
++'s comical, unusu
+ al, and 
+ mine
+@@ -80,88 +80,85 @@
+ and 
+-miner
++whimsic
+ al,%0d%0aI
+- know the kings of England, and I quote
++'m quite adept at funny gags, comedic
+  the
+- fights historical
++ory I have read
+ ,%0d%0aFrom 
+ Mara
+@@ -157,47 +157,66 @@
+ rom 
+-Marathon
++wicked puns and stupid jokes
+  to 
+-Waterloo, in order categorical
++anvils that drop on your head
+ .
