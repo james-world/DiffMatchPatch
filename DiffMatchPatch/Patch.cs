@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DiffMatchPatch
 {
-    /**
-   * Class representing one patch operation.
-   */
+    /// <summary>
+    /// Patch represents one patch operation.
+    /// </summary>
     public class Patch
     {
         public readonly List<Diff> Diffs = new List<Diff>();
@@ -15,12 +15,13 @@ namespace DiffMatchPatch
         public int Start1;
         public int Start2;
 
-        /**
-         * Emulate GNU diff's format.
-         * Header: @@ -382,8 +481,9 @@
-         * Indices are printed as 1-based, not 0-based.
-         * @return The GNU diff string.
-         */
+
+        /// <summary>
+        /// Emulate GNU diff's format.
+        /// Header: @@ -382,8 +481,9 @@
+        /// Indices are printed as 1-based, not 0-based.
+        /// </summary>
+        /// <returns>The GNU diff string</returns>
         public override string ToString()
         {
             string coords1, coords2;
