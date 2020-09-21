@@ -617,12 +617,10 @@ namespace DiffMatchPatch
         public int DiffCommonSuffix(string text1, string text2)
         {
             // Performance analysis: https://neil.fraser.name/news/2007/10/09/
-            var text1Length = text1.Length;
-            var text2Length = text2.Length;
             var n = Math.Min(text1.Length, text2.Length);
             for (var i = 1; i <= n; i++)
             {
-                if (text1[text1Length - i] != text2[text2Length - i])
+                if (text1[^i] != text2[^i])
                 {
                     return i - 1;
                 }
@@ -691,14 +689,14 @@ namespace DiffMatchPatch
         }
 
         /// <summary>
-        /// Do the two texts share a Substring which is at least half the length of
-        /// the longer text?
+        /// Determine if the two texts share a Substring which is at least half the length of
+        /// the longer text
         /// </summary>
         /// <param name="text1">First string</param>
         /// <param name="text2">Second string</param>
         /// <returns>Five element String array, containing the prefix of text1, the
         /// suffix of text1, the prefix of text2, the suffix of text2 and the
-        /// common middle.  Or null if there was no match.</returns>
+        /// common middle. Or null if there was no match.</returns>
         protected string[] DiffHalfMatch(string text1, string text2)
         {
             if (DiffTimeout <= 0)
@@ -937,16 +935,14 @@ namespace DiffMatchPatch
             }
         }
 
-        /**
-         * Look for single edits surrounded on both sides by equalities
-         * which can be shifted sideways to align the edit to a word boundary.
-         * e.g: The c
-         * <ins>at c</ins>
-         * ame. -> The
-         * <ins>cat </ins>
-         * came.
-         * @param diffs List of Diff objects.
-         */
+        /// <summary>
+        /// Look for single edits surrounded on both sides by equalities
+        /// which can be shifted sideways to align the edit to a word boundary.
+        /// </summary>
+        /// <remarks>
+        /// e.g: The c&lt;ins&gt;at c&lt;/ins&gt;ame. -> The &lt;ins&gt;cat &lt;/ins&gt;came.
+        /// </remarks>
+        /// <param name="diffs">List of Diff objects</param>
         public void DiffCleanupSemanticLossless(List<Diff> diffs)
         {
             var pointer = 1;
@@ -1027,17 +1023,17 @@ namespace DiffMatchPatch
             }
         }
 
-        /**
-         * Given two strings, compute a score representing whether the internal
-         * boundary falls on logical boundaries.
-         * Scores range from 6 (best) to 0 (worst).
-         * @param one First string.
-         * @param two Second string.
-         * @return The score.
-         */
-        private int DiffCleanupSemanticScore(string one, string two)
+        /// <summary>
+        /// Given two strings, compute a score representing whether the internal
+        /// boundary falls on logical boundaries.
+        /// Scores range from 6 (best) to 0 (worst).
+        /// </summary>
+        /// <param name="text1">First string</param>
+        /// <param name="text2">Second string</param>
+        /// <returns>The score</returns>
+        private int DiffCleanupSemanticScore(string text1, string text2)
         {
-            if (one.Length == 0 || two.Length == 0)
+            if (text1.Length == 0 || text2.Length == 0)
             {
                 // Edges are the best.
                 return 6;
@@ -1048,16 +1044,16 @@ namespace DiffMatchPatch
             // 'whitespace'.  Since this function's purpose is largely cosmetic,
             // the choice has been made to use each language's native features
             // rather than force total conformity.
-            var char1 = one[one.Length - 1];
-            var char2 = two[0];
+            var char1 = text1[^1];
+            var char2 = text2[0];
             var nonAlphaNumeric1 = !char.IsLetterOrDigit(char1);
             var nonAlphaNumeric2 = !char.IsLetterOrDigit(char2);
             var whitespace1 = nonAlphaNumeric1 && char.IsWhiteSpace(char1);
             var whitespace2 = nonAlphaNumeric2 && char.IsWhiteSpace(char2);
             var lineBreak1 = whitespace1 && char.IsControl(char1);
             var lineBreak2 = whitespace2 && char.IsControl(char2);
-            var blankLine1 = lineBreak1 && _blankLineEnd.IsMatch(one);
-            var blankLine2 = lineBreak2 && _blankLineStart.IsMatch(two);
+            var blankLine1 = lineBreak1 && _blankLineEnd.IsMatch(text1);
+            var blankLine2 = lineBreak2 && _blankLineStart.IsMatch(text2);
 
             if (blankLine1 || blankLine2)
             {
