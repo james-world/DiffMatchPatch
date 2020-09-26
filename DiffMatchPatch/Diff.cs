@@ -7,11 +7,15 @@ namespace DiffMatchPatch
     /// </summary>
     public class Diff
     {
+        /// <summary>
+        /// Type of Diff Operation: Insert, Delete or Equal
+        /// </summary>
         public Operation Operation;
-
-        // One of: INSERT, DELETE or EQUAL.
+        
+        /// <summary>
+        /// The text associated with this diff operation.
+        /// </summary>
         public string Text;
-        // The text associated with this diff operation.
 
         /// <summary>
         /// Initialize a diff with the provided values.
