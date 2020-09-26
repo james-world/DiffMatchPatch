@@ -1087,12 +1087,12 @@ namespace DiffMatchPatch
 
             return 0;
         }
-
-        /**
-         * Reduce the number of edits by eliminating operationally trivial
-         * equalities.
-         * @param diffs List of Diff objects.
-         */
+        
+        /// <summary>
+        /// Reduce the number of edits by eliminating operationally trivial
+        /// equalities.
+        /// </summary>
+        /// <param name="diffs">List of Diff objects</param>
         public void DiffCleanupEfficiency(List<Diff> diffs)
         {
             var changes = false;
@@ -1194,12 +1194,12 @@ namespace DiffMatchPatch
                 DiffCleanupMerge(diffs);
             }
         }
-
-        /**
-         * Reorder and merge like edit sections.  Merge equalities.
-         * Any edit section can move as long as it doesn't cross an equality.
-         * @param diffs List of Diff objects.
-         */
+        
+        /// <summary>
+        /// Reorder and merge like edit sections.  Merge equalities.
+        /// Any edit section can move as long as it doesn't cross an equality. 
+        /// </summary>
+        /// <param name="diffs">List of Diff objects</param>
         public void DiffCleanupMerge(List<Diff> diffs)
         {
             // Add a dummy entry at the end.
@@ -1355,15 +1355,15 @@ namespace DiffMatchPatch
                 DiffCleanupMerge(diffs);
             }
         }
-
-        /**
-         * loc is a location in text1, compute and return the equivalent location in
-         * text2.
-         * e.g. "The cat" vs "The big cat", 1->1, 5->8
-         * @param diffs List of Diff objects.
-         * @param loc Location within text1.
-         * @return Location within text2.
-         */
+        
+        /// <summary>
+        /// Given a location in text1, compute and return the equivalent location in
+        /// text2
+        /// </summary>
+        /// <remarks>e.g. "The cat" vs "The big cat", 1->1, 5->8</remarks>
+        /// <param name="diffs">List of Diff objects</param>
+        /// <param name="loc">Location within text1</param>
+        /// <returns>Location within text2</returns>
         public int DiffXIndex(List<Diff> diffs, int loc)
         {
             var chars1 = 0;
@@ -1406,11 +1406,11 @@ namespace DiffMatchPatch
             return lastChars2 + (loc - lastChars1);
         }
 
-        /**
-         * Convert a Diff list into a pretty HTML report.
-         * @param diffs List of Diff objects.
-         * @return HTML representation.
-         */
+        /// <summary>
+        /// Convert a Diff list into a pretty HTML report.
+        /// </summary>
+        /// <param name="diffs">List of Diff objects</param>
+        /// <returns>HTML representation</returns>
         public string DiffPrettyHtml(List<Diff> diffs)
         {
             var html = new StringBuilder();
@@ -1437,11 +1437,11 @@ namespace DiffMatchPatch
             return html.ToString();
         }
 
-        /**
-         * Compute and return the source text (all equalities and deletions).
-         * @param diffs List of Diff objects.
-         * @return Source text.
-         */
+        /// <summary>
+        /// Compute and return the source text (all equalities and deletions).
+        /// </summary>
+        /// <param name="diffs">List of Diff objects</param>
+        /// <returns>Source text</returns>
         public string DiffText1(List<Diff> diffs)
         {
             var text = new StringBuilder();
@@ -1456,11 +1456,11 @@ namespace DiffMatchPatch
             return text.ToString();
         }
 
-        /**
-         * Compute and return the destination text (all equalities and insertions).
-         * @param diffs List of Diff objects.
-         * @return Destination text.
-         */
+        /// <summary>
+        /// Compute and return the destination text (all equalities and insertions).
+        /// </summary>
+        /// <param name="diffs">List of Diff objects</param>
+        /// <returns>Destination text</returns>
         public string DiffText2(List<Diff> diffs)
         {
             var text = new StringBuilder();
@@ -1475,12 +1475,12 @@ namespace DiffMatchPatch
             return text.ToString();
         }
 
-        /**
-         * Compute the Levenshtein distance; the number of inserted, deleted or
-         * substituted characters.
-         * @param diffs List of Diff objects.
-         * @return Number of changes.
-         */
+        /// <summary>
+        /// Compute the Levenshtein distance; the number of inserted, deleted or
+        /// substituted characters.
+        /// </summary>
+        /// <param name="diffs">List of Diff objects/param>
+        /// <returns>Number of changes</returns>
         public int DiffLevenshtein(List<Diff> diffs)
         {
             var levenshtein = 0;
@@ -1509,15 +1509,15 @@ namespace DiffMatchPatch
             return levenshtein;
         }
 
-        /**
-         * Crush the diff into an encoded string which describes the operations
-         * required to transform text1 into text2.
-         * E.g. =3\t-2\t+ing  -> Keep 3 chars, delete 2 chars, insert 'ing'.
-         * Operations are tab-separated.  Inserted text is escaped using %xx
-         * notation.
-         * @param diffs Array of Diff objects.
-         * @return Delta text.
-         */
+        /// <summary>
+        /// Crush the diff into an encoded string which describes the operations
+        /// required to transform text1 into text2.
+        /// E.g. =3\t-2\t+ing  -> Keep 3 chars, delete 2 chars, insert 'ing'.
+        /// Operations are tab-separated.  Inserted text is escaped using %xx
+        /// notation.
+        /// </summary>
+        /// <param name="diffs">List of Diff objects</param>
+        /// <returns>Delta text</returns>
         public string DiffToDelta(List<Diff> diffs)
         {
             var text = new StringBuilder();
@@ -1547,14 +1547,15 @@ namespace DiffMatchPatch
             return delta;
         }
 
-        /**
-         * Given the original text1, and an encoded string which describes the
-         * operations required to transform text1 into text2, compute the full diff.
-         * @param text1 Source string for the diff.
-         * @param delta Delta text.
-         * @return Array of Diff objects or null if invalid.
-         * @throws ArgumentException If invalid input.
-         */
+
+        /// <summary>
+        /// Given the original text1, and an encoded string which describes the
+        /// operations required to transform text1 into text2, compute the full diff.
+        /// </summary>
+        /// <param name="text1">Source string for the diff</param>
+        /// <param name="delta">Delta text</param>
+        /// <returns>List of Diff objects or null if invalid</returns>
+        /// <exception cref="ArgumentException">If invalid input</exception>
         public List<Diff> DiffFromDelta(string text1, string delta)
         {
             var diffs = new List<Diff>();
@@ -1653,15 +1654,14 @@ namespace DiffMatchPatch
 
         //  MATCH FUNCTIONS
 
-
-        /**
-         * Locate the best instance of 'pattern' in 'text' near 'loc'.
-         * Returns -1 if no match found.
-         * @param text The text to search.
-         * @param pattern The pattern to search for.
-         * @param loc The location to search around.
-         * @return Best match index or -1.
-         */
+        /// <summary>
+        /// Locate the best instance of 'pattern' in 'text' near 'loc'.
+        /// Returns -1 if no match found.
+        /// </summary>
+        /// <param name="text">The text to search</param>
+        /// <param name="pattern">The pattern to search for</param>
+        /// <param name="loc">The location to search around</param>
+        /// <returns>Best match index or -1</returns>
         public int MatchMain(string text, string pattern, int loc)
         {
             // Check for null inputs not needed since null can't be passed in C#.
@@ -1689,15 +1689,15 @@ namespace DiffMatchPatch
             // Do a fuzzy compare.
             return MatchBitap(text, pattern, loc);
         }
-
-        /**
-         * Locate the best instance of 'pattern' in 'text' near 'loc' using the
-         * Bitap algorithm.  Returns -1 if no match found.
-         * @param text The text to search.
-         * @param pattern The pattern to search for.
-         * @param loc The location to search around.
-         * @return Best match index or -1.
-         */
+        
+        /// <summary>
+        /// Locate the best instance of 'pattern' in 'text' near 'loc' using the
+        /// Bitap algorithm.  Returns -1 if no match found.
+        /// </summary>
+        /// <param name="text">The text to search</param>
+        /// <param name="pattern">The pattern to search for</param>
+        /// <param name="loc">The location to search around</param>
+        /// <returns>Best match index or -1</returns>
         protected int MatchBitap(string text, string pattern, int loc)
         {
             // assert (Match_MaxBits == 0 || pattern.Length <= Match_MaxBits)
@@ -1823,14 +1823,14 @@ namespace DiffMatchPatch
             return bestLoc;
         }
 
-        /**
-         * Compute and return the score for a match with e errors and x location.
-         * @param e Number of errors in match.
-         * @param x Location of match.
-         * @param loc Expected location of match.
-         * @param pattern Pattern being sought.
-         * @return Overall score for match (0.0 = good, 1.0 = bad).
-         */
+        /// <summary>
+        /// Compute and return the score for a match with e errors and x location.
+        /// </summary>
+        /// <param name="e">Number of errors in match</param>
+        /// <param name="x">Location of match</param>
+        /// <param name="loc">Expected location of match</param>
+        /// <param name="pattern">Pattern being sought</param>
+        /// <returns>Overall score for match (0.0 = good, 1.0 = bad)</returns>
         private double MatchBitapScore(int e, int x, int loc, string pattern)
         {
             var accuracy = (float) e / pattern.Length;
@@ -1844,11 +1844,11 @@ namespace DiffMatchPatch
             return accuracy + proximity / (float) MatchDistance;
         }
 
-        /**
-         * Initialise the alphabet for the Bitap algorithm.
-         * @param pattern The text to encode.
-         * @return Hash of character locations.
-         */
+        /// <summary>
+        /// Initialise the alphabet for the Bitap algorithm.
+        /// </summary>
+        /// <param name="pattern">The text to encode</param>
+        /// <returns>Hash of character locations</returns>
         protected Dictionary<char, int> MatchAlphabet(string pattern)
         {
             var s = new Dictionary<char, int>();
@@ -1874,14 +1874,13 @@ namespace DiffMatchPatch
 
 
         //  PATCH FUNCTIONS
-
-
-        /**
-         * Increase the context until it is unique,
-         * but don't let the pattern expand beyond Match_MaxBits.
-         * @param patch The patch to grow.
-         * @param text Source text.
-         */
+        
+        /// <summary>
+        /// Increase the context until it is unique,
+        /// but don't let the pattern expand beyond Match_MaxBits.
+        /// </summary>
+        /// <param name="patch">The patch to grow</param>
+        /// <param name="text">Source text</param>
         protected void PatchAddContext(Patch patch, string text)
         {
             if (text.Length == 0)
@@ -1929,14 +1928,14 @@ namespace DiffMatchPatch
             patch.Length1 += prefix.Length + suffix.Length;
             patch.Length2 += prefix.Length + suffix.Length;
         }
-
-        /**
-         * Compute a list of patches to turn text1 into text2.
-         * A set of diffs will be computed.
-         * @param text1 Old text.
-         * @param text2 New text.
-         * @return List of Patch objects.
-         */
+        
+        /// <summary>
+        /// Compute a list of patches to turn text1 into text2.
+        /// A set of diffs will be computed.
+        /// </summary>
+        /// <param name="text1">Old text</param>
+        /// <param name="text2">New text</param>
+        /// <returns>List of Patch objects</returns>
         public List<Patch> PatchMake(string text1, string text2)
         {
             // Check for null inputs not needed since null can't be passed in C#.
@@ -1951,12 +1950,12 @@ namespace DiffMatchPatch
             return PatchMake(text1, diffs);
         }
 
-        /**
-         * Compute a list of patches to turn text1 into text2.
-         * text1 will be derived from the provided diffs.
-         * @param diffs Array of Diff objects for text1 to text2.
-         * @return List of Patch objects.
-         */
+        /// <summary>
+        /// Compute a list of patches to turn text1 into text2.
+        /// text1 will be derived from the provided diffs.
+        /// </summary>
+        /// <param name="diffs">List of Diff objects for text1 to text2.</param>
+        /// <returns>List of Patch objects</returns>
         public List<Patch> PatchMake(List<Diff> diffs)
         {
             // Check for null inputs not needed since null can't be passed in C#.
@@ -1965,26 +1964,13 @@ namespace DiffMatchPatch
             return PatchMake(text1, diffs);
         }
 
-        /**
-         * Compute a list of patches to turn text1 into text2.
-         * text2 is ignored, diffs are the delta between text1 and text2.
-         * @param text1 Old text
-         * @param text2 Ignored.
-         * @param diffs Array of Diff objects for text1 to text2.
-         * @return List of Patch objects.
-         * @deprecated Prefer patch_make(string text1, List&lt;Diff&gt; diffs).
-         */
-        public List<Patch> PatchMake(string text1, string text2,
-            List<Diff> diffs) =>
-            PatchMake(text1, diffs);
-
-        /**
-         * Compute a list of patches to turn text1 into text2.
-         * text2 is not provided, diffs are the delta between text1 and text2.
-         * @param text1 Old text.
-         * @param diffs Array of Diff objects for text1 to text2.
-         * @return List of Patch objects.
-         */
+        /// <summary>
+        /// Compute a list of patches to turn text1 into text2.
+        /// text2 is not provided, diffs are the delta between text1 and text2.
+        /// </summary>
+        /// <param name="text1">Old text</param>
+        /// <param name="diffs">List of Diff objects for text1 to text2</param>
+        /// <returns>List of Patch objects</returns>
         public List<Patch> PatchMake(string text1, List<Diff> diffs)
         {
             // Check for null inputs not needed since null can't be passed in C#.
@@ -2076,11 +2062,11 @@ namespace DiffMatchPatch
             return patches;
         }
 
-        /**
-         * Given an array of patches, return another array that is identical.
-         * @param patches Array of Patch objects.
-         * @return Array of Patch objects.
-         */
+        /// <summary>
+        /// Given an list of patches, return another list that is identical.
+        /// </summary>
+        /// <param name="patches">List of Patch objects</param>
+        /// <returns>List of Patch objects</returns>
         public List<Patch> PatchDeepCopy(List<Patch> patches)
         {
             var patchesCopy = new List<Patch>();
@@ -2103,14 +2089,16 @@ namespace DiffMatchPatch
             return patchesCopy;
         }
 
-        /**
-         * Merge a set of patches onto the text.  Return a patched text, as well
-         * as an array of true/false values indicating which patches were applied.
-         * @param patches Array of Patch objects
-         * @param text Old text.
-         * @return Two element Object array, containing the new text and an array of
-         * bool values.
-         */
+        /// <summary>
+        /// Merge a set of patches onto the text.  Return a patched text, as well
+        /// as an array of true/false values indicating which patches were applied.
+        /// </summary>
+        /// <param name="patches">List of Patch objects</param>
+        /// <param name="text">Old text</param>
+        /// <returns>
+        /// Two element Object array, containing the new text and an array of
+        /// bool values.
+        /// </returns>
         public object[] PatchApply(List<Patch> patches, string text)
         {
             if (patches.Count == 0)
@@ -2243,12 +2231,12 @@ namespace DiffMatchPatch
             return new object[] {text, results};
         }
 
-        /**
-         * Add some padding on text start and end so that edges can match something.
-         * Intended to be called only from within patch_apply.
-         * @param patches Array of Patch objects.
-         * @return The padding string added to each side.
-         */
+        /// <summary>
+        /// Add some padding on text start and end so that edges can match something.
+        /// Intended to be called only from within PatchApply.
+        /// </summary>
+        /// <param name="patches">List of Patch objects</param>
+        /// <returns>The padding string added to each side.</returns>
         public string PatchAddPadding(List<Patch> patches)
         {
             var paddingLength = PatchMargin;
@@ -2313,12 +2301,12 @@ namespace DiffMatchPatch
             return nullPadding;
         }
 
-        /**
-         * Look through the patches and break up any which are longer than the
-         * maximum limit of the match algorithm.
-         * Intended to be called only from within patch_apply.
-         * @param patches List of Patch objects.
-         */
+        /// <summary>
+        /// Look through the patches and break up any which are longer than the
+        /// maximum limit of the match algorithm.
+        /// Intended to be called only from within PatchApply
+        /// </summary>
+        /// <param name="patches">List of Patch objects</param>
         public void PatchSplitMax(List<Patch> patches)
         {
             var patchSize = _matchMaxBits;
@@ -2444,11 +2432,11 @@ namespace DiffMatchPatch
             }
         }
 
-        /**
-         * Take a list of patches and return a textual representation.
-         * @param patches List of Patch objects.
-         * @return Text representation of patches.
-         */
+        /// <summary>
+        /// Take a list of patches and return a textual representation.
+        /// </summary>
+        /// <param name="patches">List of Patch objects</param>
+        /// <returns>Text representation of patches</returns>
         public string PatchToText(List<Patch> patches)
         {
             var text = new StringBuilder();
@@ -2459,14 +2447,14 @@ namespace DiffMatchPatch
 
             return text.ToString();
         }
-
-        /**
-         * Parse a textual representation of patches and return a List of Patch
-         * objects.
-         * @param textline Text representation of patches.
-         * @return List of Patch objects.
-         * @throws ArgumentException If invalid input.
-         */
+        
+        /// <summary>
+        /// Parse a textual representation of patches and return a List of Patch
+        /// objects.
+        /// </summary>
+        /// <param name="textline">Text representation of patches</param>
+        /// <returns>List of Patch objects</returns>
+        /// <exception cref="ArgumentException">ArgumentException If invalid input</exception>
         public List<Patch> PatchFromText(string textline)
         {
             var patches = new List<Patch>();
@@ -2577,14 +2565,13 @@ namespace DiffMatchPatch
 
             return patches;
         }
-
-        /**
-         * Encodes a string with URI-style % escaping.
-         * Compatible with JavaScript's encodeURI function.
-         * 
-         * @param str The string to encode.
-         * @return The encoded string.
-         */
+        
+        /// <summary>
+        /// Encodes a string with URI-style % escaping.
+        /// Compatible with JavaScript's encodeURI function.
+        /// </summary>
+        /// <param name="str">The string to encode.</param>
+        /// <returns>The encoded string.</returns>
         public static string EncodeUri(string str) =>
             // C# is overzealous in the replacements.  Walk back on a few.
             new StringBuilder(HttpUtility.UrlEncode(str))
